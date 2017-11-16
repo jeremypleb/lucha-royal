@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+<script src="javascripts/controller.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <meta charset="utf-8">
+  <title>Image Editor</title>
+</head>
+<body>
+
+<div id='app' ng-app='app' ng-controller='mainCtrl'>
+
+    <div class="title-div"><h2 class="siteHeader">Lucha Royal!</h2></div>
+        
+    <button class="btn btn-primary" style="width:100%; max-width: 350px; display: block; margin: auto;" ng-click="createFighter()">Create New Fighter</button>
+    
+    <div class="modal-shadow" ng-show="editMode" ng-cloak></div>
+
+    <div class="all-images">
+      <div ng-repeat = "f in fighters" class="card image-box">
+        <div class="image-container">
+          <img class="card-img-top f-image-weapon" ng-src="images/weapon-{{f.weapon.ext}}">
+          <img class="card-img-top f-image-head" ng-src="images/head-{{f.head.ext}}">
+          <img class="card-img-top f-image-body" ng-src="images/body-{{f.body.ext}}">
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">{{f.name}}</h4>
+          <p class="card-text" style="text-align: left; font-size: 20px;">
+            HP: {{f.hp}}<br>
+            Agility: {{f.agility}}<br>
+            Strength: {{f.strength}}<br>
+            Magic: {{f.magic}}
+          </p>
+          <button class="btn btn-primary" style="width:100%" ng-click="startBattle(f)">Take me to Battle</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" ng-show="editMode" ng-cloak>
+
+      <div class="exit-button" ng-click="editMode = !editMode;">&times;</div>
+      <h2 class="display-3">Create Fighter</h2>
+      <div class="row big-img">
+
+          <div class="col-md-7">
+              <div class="image-holder">
+                <div class="figure-box">
+                <img ng-src="images/weapon-{{formData.weapon.ext}}" class="f-image-weapon">
+                <img ng-src="images/head-{{formData.head.ext}}" class="f-image-head">
+                <img ng-src="images/body-{{formData.body.ext}}" class="f-image-body">
+                </div>
+              </div>
+          </div>
+
+          <div class="col-md-5">
+            <form id="images" ng-submit="addFighter()" class="form-group my-form-data">
+              <label for="addName">Name:</label>
+              <input type="text" ng-model="formData.name" id="addName" class="form-control" required>
+              
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle my-dropdown-button" type="button" id="headMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Choose a Head
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="headMenu">
+                  <a ng-click="setHead(headType)" ng-repeat="headType in headOptions" class="dropdown-item" href="#"><img ng-src="images/head-{{headType.ext}}"></a>
+                </div>
+              </div>
+
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle my-dropdown-button" type="button" id="bodyMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Choose a Torso/Legs
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bodyMenu">
+                  <a ng-click="setBody(bodyType)" ng-repeat="bodyType in bodyOptions" class="dropdown-item" href="#"><img ng-src="images/body-{{bodyType.ext}}"></a>
+                </div>
+              </div>
+              
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle my-dropdown-button" type="button" id="weaponMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Choose a Weapon
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="weaponMenu">
+                  <a ng-click="setWeapon(weaponType)" ng-repeat="weaponType in weaponOptions" class="dropdown-item" href="#"><img ng-src="images/weapon-{{weaponType.ext}}"></a>
+                </div>
+              </div>
+
+              <p>HP: {{formData.hp}}</p> <input type="range" min="1" max="99" class="slider" id="myRange" ng-model="formData.hp" ng-change="updateStats(formData.hp, formData.magic, 'magic')">
+              <p>Agility: {{formData.agility}}</p> <input type="range" min="1" max="99" class="slider" id="myRange" ng-model="formData.agility" ng-change="updateStats(formData.agility, formData.strength, 'strength')">
+              <p>Strength: {{formData.strength}}</p> <input type="range" min="1" max="99" class="slider" id="myRange" ng-model="formData.strength" ng-change="updateStats(formData.strength, formData.agility, 'agility')">
+              <p>Magic: {{formData.magic}}</p> <input type="range" min="1" max="99" class="slider" id="myRange" ng-model="formData.magic" ng-change="updateStats(formData.magic, formData.hp, 'hp')">
+              <br><br>
+
+              <input type="submit" value="Save Fighter" class="btn btn-primary" style="width: 100%;">
+            </form>
+          </div>
+
+      </div>
+
+    </div>
+
+
+    <!--<h2 class = "addImage"> Enter A New Image</h2>
+
+    <div class = "addImageForm">
+      <form id="images" ng-submit="addImage()" class="form-group">
+        <label for="addName">Name:</label>
+        <input type="text" ng-model="formData.name" id="addName" class="form-control"><br>
+        <label for="URL">Url:</label>
+        <input type="url" ng-model="formData.url" id="URL" class="form-control"><br>
+        <label for="Des">Description:</label>
+        <input type="text" ng-model="formData.description" id="Des" class="form-control"><br>
+        <input type="submit" value="Submit" class="btn btn-primary" style="width: 100%;">
+      </form>
+    </div>
+
+    <div class="all-images">
+    <div ng-repeat = "i in images" class="card image-box">
+      <div class="image-container"><img class="card-img-top" ng-src="{{i.url}}" alt="Card image" style="filter: blur({{i.blur / 10}}px) brightness({{i.brightness}}%) contrast({{i.contrast}}%) grayscale({{i.grayscale}}%); width:100%"></div>
+      <div class="card-body" style="">
+        <h4 class="card-title">{{i.name}}</h4>
+        <p class="card-text">{{i.description}}<br>Last Edited: {{i.lastEdit}}</p>
+        <button class="btn btn-primary" style="width:100%" ng-click="editPhoto(i)">Edit Picture</button>
+      </div>
+    </div>
+    </div>
+
+    <div class="modal-shadow" ng-show="editMode" ng-cloak></div>
+    
+    <div id="photoEditModal" class="modal" ng-show="editMode" ng-cloak>
+        <div class="exit-button" ng-click="editMode = !editMode;">&times;</div>
+        <h2 class="display-3">Edit Image</h2>
+        <div class="row big-img">
+            <div class="col-md-7">
+                <img ng-src="{{editData.url}}" style="filter: blur({{editData.blur / 10}}px) brightness({{editData.brightness}}%) contrast({{editData.contrast}}%) grayscale({{editData.grayscale}}%); width: 100%; max-height: 600px;">
+            </div>
+            <div class="col-md-5">
+                <p>Blur</p> <input type="range" min="0" max="100" class="slider" id="myRange" ng-model="editData.blur">
+                <p>Brightness</p> <input type="range" min="0" max="200" class="slider" id="myRange" ng-model="editData.brightness">
+                <p>Contrast</p> <input type="range" min="0" max="200" class="slider" id="myRange" ng-model="editData.contrast">
+                <p>Grayscale</p> <input type="range" min="0" max="100" class="slider" id="myRange" ng-model="editData.grayscale">
+                <label for="editName">Name:</label> <input type=text ng-model="editData.name" id="editName" class="form-control">
+                <label for="editDescription">Description:</label> <input type=text ng-model="editData.description" id="editDescription" class="form-control">
+                <br>
+                <button class="btn btn-primary" style="width:100%" ng-click="updateImage(editData.index); editMode = !editMode;">Save Changes</button>
+            </div>
+          </div>
+    </div>-->
+
+    <!--blur() | brightness() | contrast() | drop-shadow() | grayscale() | hue-rotate() | invert() | opacity() | saturate() | sepia()-->
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,255 @@
+body 
+{
+  padding: 0;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #7Dc0d9;
+}
+
+a 
+{
+  color: #00B7FF;
+}
+
+.title-div {
+	width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    margin-bottom: 15px;
+    background-color: white;
+    color: black;
+}
+
+.siteHeader
+{
+  position: relative;
+  top: 24px;
+  left: 22px;
+  max-width: calc(100% - 24px);
+  font-family: broadway;
+}
+
+.my-dropdown-button {
+  width: 100%;
+  display: block;
+  margin: 20px auto;
+  color: black;
+  background-color: white;
+}
+
+.my-form-data {
+  text-align: left;
+}
+
+.my-form-data img {
+  width: 200px;
+  max-width: 100%;
+}
+
+.dropdown-menu.show {
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.image-holder {
+  margin-left: 15px;
+  width: calc(100% - 15px);
+  height: 100%;
+  background-color: white;
+  border: 1px solid #aaa;
+}
+
+.image-holder img {
+  max-height: 150px;
+  max-width: 100%;
+}
+
+.addImage
+{
+  text-align: center;
+}
+
+.addImageForm
+{
+  max-width: 500px;
+  margin: auto;  
+}
+
+.addImageForm label
+{
+   margin-bottom: 0.5rem;
+}
+
+.all-images
+{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.image-box 
+{
+  display:inline-flex;
+    vertical-align: top;
+    width: 300px;
+    min-height: 500px;
+    border: 2px solid transparent;
+    margin: 15px;
+    text-align: center;
+}
+
+.image-box a 
+{
+  width: 100%;
+}
+
+.image-container 
+{
+  height: 300px;
+  border-bottom: #aaa;
+}
+
+.image-container img
+{
+  max-height: 150px;
+  width: auto;
+}
+
+.f-image-head {
+  position: relative;
+  z-index:1;
+}
+.f-image-body {
+  position: relative;
+  z-index: 0;
+  margin-top: -10px;
+}
+.f-image-weapon {
+  position: absolute; z-index: 3; top: 100px; left: 200px;
+}
+
+.modal-shadow {
+  position: fixed;
+  top: -50px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  width: 200%;
+  height: 200%;
+  overflow: hidden;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.6);
+  z-index: 998;
+}
+.modal {
+  position: absolute;
+  width: 1100px;
+  max-width: calc(100% - 50px);
+  padding: 15px;
+  left: 20px;
+  right: 20px;
+  margin: 0 auto;
+  top: 20px;
+  min-height: calc(100vh - 40px);
+  /*bottom: 20px;*/
+  background-color: #f3f3f3;
+  z-index: 999;
+  text-align: center;
+  display: block;
+  overflow-y: auto;
+}
+.modal h2 {
+  font-weight: lighter;
+  font-size: 24px;
+  text-align: center;
+}
+.modal p {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: left;
+  margin: 1rem auto;
+}
+.modal label {
+  margin: 1rem;
+  font-size: 16px;
+}
+.exit-button {
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  top:0;
+  right: 0;
+  color: #707070;
+  text-align: center;
+  font-size: 30px;
+  font-family: arial, sans-serif;
+  font-weight: lighter;
+}
+.exit-button:hover {
+color:white;
+background-color: #dc1100;
+cursor: pointer;
+}
+
+.big-img {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.figure-box {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  max-width: 100%;
+  height: 375px;
+  margin: auto;
+}
+
+#slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .big-img {
+    top: 0;
+    transform: none;
+  }
+}
