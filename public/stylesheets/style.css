@@ -6,6 +6,10 @@ body
   overflow-y: hidden;
 }
 
+html {
+  overflow-y: hidden;
+}
+
 a 
 {
   color: #00B7FF;
