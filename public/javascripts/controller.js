@@ -36,12 +36,14 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
 
   $scope.headOptions = [
     {ext: '1.gif'},
+    {ext: 'kong.jpg'},
     {ext: '2.gif'},
     {ext: '3.jpg'},
     {ext: '4.jpg'},
     {ext: '5.png'},
     {ext: '1.png'},
     {ext: 'clement.png'},
+    {ext: 'goku.png'},
     {ext: '2.jpg'}
     
   ];
@@ -50,13 +52,15 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
     {ext: 'female.png'},
     {ext: 'male.png'},
     {ext: '1.jpg'},
-    {ext: 'goku.png'}
+    {ext: 'goku.png'},
+    {ext: 'kong.jpg'}
   ];
 
   $scope.weaponOptions = [
     {ext: '3.png'},
     {ext: '4.jpg'},
     {ext: 'chainsaw.jpg'},
+    {ext: 'sword.png'},
     {ext: 'rod.png'}
   ];
 
