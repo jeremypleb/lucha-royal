@@ -144,18 +144,35 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
     var criticalHit = false;
     var opponent = ($scope.currentFighter + 1) % 2
     var damageDealt = 0;
+    var multiplier = 1;
     
-    damageDealt = $scope.selectedFighters[$scope.currentFighter].strength;
+    damageDealt = 3 + Math.floor($scope.selectedFighters[$scope.currentFighter].strength / 3);
+    
+    criticalHit = Math.floor (Math.random() * 100) <= $scope.selectedFighters[$scope.currentFighter].magic
     
     if (criticalHit) {
-      damageDealt *= 3;
+      var multiplier = Math.floor(Math.random() * 2 + 2.25);
+      damageDealt *= multiplier;
     }
     
     
     $scope.remainingHP[opponent] -= damageDealt;
-    $scope.battleHistory.push($scope.lastAction);
-    $scope.lastAction = $scope.battleCounter + ': ' + $scope.selectedFighters[$scope.currentFighter].name    + ' hit ' +
+    $scope.battleHistory.unshift($scope.lastAction);
+    $scope.lastAction = $scope.selectedFighters[$scope.currentFighter].name    + ' hit ' +
       $scope.selectedFighters[opponent].name + ' for ' + damageDealt + '!!!';
+    
+    if (criticalHit) {
+      $scope.lastAction = 'CRITICAL HIT X' + multiplier + '!!! ' + $scope.lastAction;
+    }
+    
+    $scope.lastAction = $scope.battleCounter + ': ' + $scope.lastAction
+    
+    if ($scope.remainingHP[opponent] <= 0) {
+      $scope.gameOver = true;
+      $scope.battleHistory.unshift($scope.lastAction);
+      $scope.lastAction = $scope.selectedFighters[$scope.currentFighter].name + ' WINS!!!'
+      
+    }
     
     $scope.currentFighter = opponent;
     $scope.battleCounter++;
