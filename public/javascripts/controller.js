@@ -148,7 +148,7 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
     
     damageDealt = 3 + Math.floor($scope.selectedFighters[$scope.currentFighter].strength / 3);
     
-    criticalHit = Math.floor (Math.random() * 100) <= $scope.selectedFighters[$scope.currentFighter].magic
+    criticalHit = Math.floor(Math.random() * 100) <= $scope.selectedFighters[$scope.currentFighter].magic
     
     if (criticalHit) {
       var multiplier = Math.floor(Math.random() * 2 + 2.25);
