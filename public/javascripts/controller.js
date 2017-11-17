@@ -24,6 +24,7 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
   };
 
   $scope.fighters = [];
+  $scope.selectedFighters = [];
 
   $scope.headOptions = [
     {ext: '1.png'},
@@ -94,6 +95,21 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
       if (attr1 + attr2 > 100) {
         $scope.formData[type] = 100 - attr1;
       }
+  }
+  
+  $scope.selectFighter = function(f) {
+    if ($scope.selectedFighters.length && f == $scope.selectedFighters[0]) {
+      $scope.selectedFighters = [];
+      return;
+    }
+    $scope.selectedFighters.push(f);
+    if ($scope.selectedFighters.length == 2) {
+      $scope.startBattle();
+    }
+  }
+  
+  $scope.startBattle = function() {
+    console.log("LOL");
   }
 
 });
