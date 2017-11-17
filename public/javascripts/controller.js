@@ -9,12 +9,21 @@ app.factory('getFighterCards', function ($http) {
         .then(function (resp) {
           return resp.data
         })
+    },
+    put: function (data) {
+      console.log(data._id, data);
+      return $http
+        .put(API_ROOT+'/'+data._id+'/upvictory')
+        .then(function (resp) {
+          console.log('worked!');
+        })
+        console.log(data);
     }
   }
 
 });
 
-app.controller('mainCtrl', function($scope, $http, getFighterCards) {
+app.controller('mainCtrl', function($scope, $http, $window, getFighterCards) {
 
   $scope.formData = {
     hp: 50,
@@ -36,16 +45,13 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
 
   $scope.headOptions = [
     {ext: '1.gif'},
-    {ext: 'kong.jpg'},
+    {ext: 'kong.png'},
     {ext: '2.gif'},
-    {ext: '3.jpg'},
-    {ext: '4.jpg'},
+    {ext: '3.png'},
     {ext: '5.png'},
     {ext: '1.png'},
     {ext: 'clement.png'},
     {ext: 'goku.png'},
-    {ext: '2.jpg'}
-    
   ];
 
   $scope.bodyOptions = [
@@ -59,7 +65,7 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
   $scope.weaponOptions = [
     {ext: '3.png'},
     {ext: '4.jpg'},
-    {ext: 'chainsaw.jpg'},
+    {ext: 'chainsaw.png'},
     {ext: 'sword.png'},
     {ext: 'rod.png'}
   ];
@@ -73,6 +79,7 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
 
   $scope.addFighter = function() {
     //check for valid formData, if not, reject the request
+    $scope.formData.victories = 0;
     $http({
        url: 'fighters',
        method: "POST",
@@ -129,6 +136,7 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
     $scope.battleHistory = []
     $scope.battleMode = true;
     $scope.battleCounter = 1;
+    $window.scrollTo(0, 0);
     
     var startStr = 'A battle has started between ' + $scope.selectedFighters[0].name
      + ' and ' + $scope.selectedFighters[1].name + '!!!';
@@ -166,6 +174,7 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
     
     
     $scope.remainingHP[opponent] -= damageDealt;
+    if ($scope.remainingHP[opponent] < 0) { $scope.remainingHP[opponent] = 0; }
     $scope.battleHistory.unshift($scope.lastAction);
     $scope.lastAction = $scope.selectedFighters[$scope.currentFighter].name    + ' hit ' +
       $scope.selectedFighters[opponent].name + ' for ' + damageDealt + '!!!';
@@ -181,6 +190,11 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
       $scope.battleHistory.unshift($scope.lastAction);
       $scope.lastAction = $scope.selectedFighters[$scope.currentFighter].name + ' WINS!!!'
       
+      getFighterCards.put($scope.selectedFighters[$scope.currentFighter])
+      .then(function () {
+      });
+      let index = $scope.fighters.findIndex(i => i._id === $scope.selectedFighters[$scope.currentFighter]._id);
+      $scope.fighters[index].victories += 1;
     }
     
     $scope.currentFighter = opponent;
@@ -213,4 +227,3 @@ function getFormattedTime() {
     var m = addZero(d.getMinutes());
     return date + ' at ' + h + ":" + m + ' ' + meridian;
 }
-

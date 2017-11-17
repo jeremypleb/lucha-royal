@@ -27,16 +27,23 @@ router.post('/fighters', function(req, res, next) {
     });
 });
 
-/*router.param('fighter', function(req, res, next, id) {
+router.param('fighter', function(req, res, next, id) {
   var query = Fighter.findById(id);
   query.exec(function (err, fighter){
     if (err) { return next(err); }
-    //if (!fighter) { return next(new Error("can't find fighter")); }
+    if (!fighter) { return next(new Error("can't find fighter")); }
     req.fighter = fighter;
     console.log(req);
     return next();
   });
-});*/
+});
+
+router.put('/fighters/:fighter/upvictory', function(req, res, next) {
+  req.fighter.upvictory(function(err, fighter){
+    if (err) { return next(err); }
+    res.json(fighter);
+  });
+});
 
 /*router.put('/images', function(req,res) {
     console.log('UPDATE image');

@@ -133,6 +133,16 @@ a
   position: absolute; z-index: 3; top: 100px; left: 200px;
 }
 
+.lastAction {
+  padding: 16px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.history {
+  line-height: 16px;
+}
+
 .modal-shadow {
   position: fixed;
   top: -50px;
