@@ -108,60 +108,60 @@
 
     <div class="modal" ng-show="battleMode" ng-cloak>
       
-      <div class="exit-button" ng-click="battleMode = !battleMode;">&times;</div>
+      <div class="exit-button" ng-click="endBattle()">&times;</div>
       <h2 class="display-3">Let's Rumble!</h2>
-
-    </div>
-
-
-    <!--<h2 class = "addImage"> Enter A New Image</h2>
-
-    <div class = "addImageForm">
-      <form id="images" ng-submit="addImage()" class="form-group">
-        <label for="addName">Name:</label>
-        <input type="text" ng-model="formData.name" id="addName" class="form-control"><br>
-        <label for="URL">Url:</label>
-        <input type="url" ng-model="formData.url" id="URL" class="form-control"><br>
-        <label for="Des">Description:</label>
-        <input type="text" ng-model="formData.description" id="Des" class="form-control"><br>
-        <input type="submit" value="Submit" class="btn btn-primary" style="width: 100%;">
-      </form>
-    </div>
-
-    <div class="all-images">
-    <div ng-repeat = "i in images" class="card image-box">
-      <div class="image-container"><img class="card-img-top" ng-src="{{i.url}}" alt="Card image" style="filter: blur({{i.blur / 10}}px) brightness({{i.brightness}}%) contrast({{i.contrast}}%) grayscale({{i.grayscale}}%); width:100%"></div>
-      <div class="card-body" style="">
-        <h4 class="card-title">{{i.name}}</h4>
-        <p class="card-text">{{i.description}}<br>Last Edited: {{i.lastEdit}}</p>
-        <button class="btn btn-primary" style="width:100%" ng-click="editPhoto(i)">Edit Picture</button>
-      </div>
-    </div>
-    </div>
-
-    <div class="modal-shadow" ng-show="editMode" ng-cloak></div>
-    
-    <div id="photoEditModal" class="modal" ng-show="editMode" ng-cloak>
-        <div class="exit-button" ng-click="editMode = !editMode;">&times;</div>
-        <h2 class="display-3">Edit Image</h2>
-        <div class="row big-img">
-            <div class="col-md-7">
-                <img ng-src="{{editData.url}}" style="filter: blur({{editData.blur / 10}}px) brightness({{editData.brightness}}%) contrast({{editData.contrast}}%) grayscale({{editData.grayscale}}%); width: 100%; max-height: 600px;">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card image-box">
+            <div class="image-container">
+              <img class="card-img-top f-image-weapon" ng-src="images/weapon-{{selectedFighters[0].weapon.ext}}">
+              <img class="card-img-top f-image-head" ng-src="images/head-{{selectedFighters[0].head.ext}}">
+              <img class="card-img-top f-image-body" ng-src="images/body-{{selectedFighters[0].body.ext}}">
             </div>
-            <div class="col-md-5">
-                <p>Blur</p> <input type="range" min="0" max="100" class="slider" id="myRange" ng-model="editData.blur">
-                <p>Brightness</p> <input type="range" min="0" max="200" class="slider" id="myRange" ng-model="editData.brightness">
-                <p>Contrast</p> <input type="range" min="0" max="200" class="slider" id="myRange" ng-model="editData.contrast">
-                <p>Grayscale</p> <input type="range" min="0" max="100" class="slider" id="myRange" ng-model="editData.grayscale">
-                <label for="editName">Name:</label> <input type=text ng-model="editData.name" id="editName" class="form-control">
-                <label for="editDescription">Description:</label> <input type=text ng-model="editData.description" id="editDescription" class="form-control">
-                <br>
-                <button class="btn btn-primary" style="width:100%" ng-click="updateImage(editData.index); editMode = !editMode;">Save Changes</button>
+            <div class="card-body">
+              <h4 class="card-title">{{selectedFighters[0].name}}</h4>
+              <p class="card-text" style="text-align: left; font-size: 20px;">
+                HP: {{remainingHP[0]}}/{{selectedFighters[0].hp}}<br>
+                Agility: {{selectedFighters[0].agility}}<br>
+                Strength: {{selectedFighters[0].strength}}<br>
+                Magic: {{selectedFighters[0].magic}}
+              </p>
             </div>
           </div>
-    </div>-->
+        </div>
 
-    <!--blur() | brightness() | contrast() | drop-shadow() | grayscale() | hue-rotate() | invert() | opacity() | saturate() | sepia()-->
+        <div class="col-md-4">
+          <h5>Battle History:</h5>
+          <div class = "history" ng-repeat = "h in battleHistory">
+            <div>{{h}}</div>
+          </div>
+
+          <div class="lastAction">{{lastAction}}</div>
+          <button ng-click="nextBattleAction()" ng-disabled="gameOver">Next Move!!!</button>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card image-box">
+            <div class="image-container">
+              <img class="card-img-top f-image-weapon" ng-src="images/weapon-{{selectedFighters[1].weapon.ext}}">
+              <img class="card-img-top f-image-head" ng-src="images/head-{{selectedFighters[1].head.ext}}">
+              <img class="card-img-top f-image-body" ng-src="images/body-{{selectedFighters[1].body.ext}}">
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">{{selectedFighters[1].name}}</h4>
+              <p class="card-text" style="text-align: left; font-size: 20px;">
+                HP: {{remainingHP[1]}}/{{selectedFighters[1].hp}}<br>
+                Agility: {{selectedFighters[1].agility}}<br>
+                Strength: {{selectedFighters[1].strength}}<br>
+                Magic: {{selectedFighters[1].magic}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    </div>
 
 </div>
 

@@ -26,6 +26,13 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
   $scope.fighters = [];
   $scope.selectedFighters = [];
   $scope.fighterCheckBox = [];
+  
+  $scope.remainingHP = [];
+  $scope.battleHistory = [];
+  $scope.lastAction = '';
+  $scope.currentFighter = 0;
+  $scope.gameOver= false;
+  $scope.battleCounter = 0;
 
   $scope.headOptions = [
     {ext: '1.png'},
@@ -110,13 +117,56 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
   }
   
   $scope.startBattle = function() {
-    console.log("LOL");
+    $scope.battleHistory = []
     $scope.battleMode = true;
+    $scope.battleCounter = 1;
+    
+    var startStr = 'A battle has started between ' + $scope.selectedFighters[0].name
+     + ' and ' + $scope.selectedFighters[1].name + '!!!';
+    $scope.battleHistory.push(startStr)
+    $scope.remainingHP = [$scope.selectedFighters[0].hp, $scope.selectedFighters[1].hp]
+    if ($scope.selectedFighters[0].agility > $scope.selectedFighters[1].agility) {
+      $scope.currentFighter = 0;
+      $scope.lastAction = $scope.selectedFighters[0].name + ' goes first';
+    } else {
+      $scope.currentFighter = 1;
+      $scope.lastAction = $scope.selectedFighters[1].name + ' goes first';
+    }
     setTimeout(function() {
       for (let i=0; i < $scope.fighterCheckBox.length; i++) {
         $scope.fighterCheckBox[i] = false;
       }
     }, 100);
+  }
+  
+  $scope.nextBattleAction = function() {
+    
+    var criticalHit = false;
+    var opponent = ($scope.currentFighter + 1) % 2
+    var damageDealt = 0;
+    
+    damageDealt = $scope.selectedFighters[$scope.currentFighter].strength;
+    
+    if (criticalHit) {
+      damageDealt *= 3;
+    }
+    
+    
+    $scope.remainingHP[opponent] -= damageDealt;
+    $scope.battleHistory.push($scope.lastAction);
+    $scope.lastAction = $scope.battleCounter + ': ' + $scope.selectedFighters[$scope.currentFighter].name    + ' hit ' +
+      $scope.selectedFighters[opponent].name + ' for ' + damageDealt + '!!!';
+    
+    $scope.currentFighter = opponent;
+    $scope.battleCounter++;
+    
+    
+  }
+  
+  $scope.endBattle = function() {
+    $scope.selectedFighters = [];
+    $scope.battleMode = false;
+    $scope.gameOver = false;
   }
 
 });
