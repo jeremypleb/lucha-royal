@@ -3,11 +3,11 @@ body
   padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #7Dc0d9;
-  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 html {
-  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 a 
