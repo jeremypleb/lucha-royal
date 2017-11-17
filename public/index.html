@@ -19,7 +19,7 @@
         
     <button class="btn btn-primary" style="width:100%; max-width: 350px; display: block; margin: auto;" ng-click="createFighter()">Create New Fighter</button>
     
-    <div class="modal-shadow" ng-show="editMode" ng-cloak></div>
+    <div class="modal-shadow" ng-show="editMode || battleMode" ng-cloak></div>
 
     <div class="all-images">
       <div ng-repeat = "f in fighters" class="card image-box">
@@ -36,8 +36,10 @@
             Strength: {{f.strength}}<br>
             Magic: {{f.magic}}
           </p>
-          <input type="checkbox" ng-click="selectFighter(f)" />
-          <button class="btn btn-primary" style="width:100%" ng-click="startBattle(f)">Take me to Battle</button>
+          <label class="check-container">Take me to Battle
+            <input type="checkbox" ng-click="selectFighter(f); fighterCheckBox[$index] = !fighterCheckBox[$index];" ng-checked="fighterCheckBox[$index]">
+            <span class="checkmark"></span>
+          </label>
         </div>
       </div>
     </div>
@@ -101,6 +103,13 @@
           </div>
 
       </div>
+
+    </div>
+
+    <div class="modal" ng-show="battleMode" ng-cloak>
+      
+      <div class="exit-button" ng-click="battleMode = !battleMode;">&times;</div>
+      <h2 class="display-3">Let's Rumble!</h2>
 
     </div>
 

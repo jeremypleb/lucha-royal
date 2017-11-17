@@ -25,6 +25,7 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
 
   $scope.fighters = [];
   $scope.selectedFighters = [];
+  $scope.fighterCheckBox = [];
 
   $scope.headOptions = [
     {ext: '1.png'},
@@ -110,6 +111,12 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
   
   $scope.startBattle = function() {
     console.log("LOL");
+    $scope.battleMode = true;
+    setTimeout(function() {
+      for (let i=0; i < $scope.fighterCheckBox.length; i++) {
+        $scope.fighterCheckBox[i] = false;
+      }
+    }, 100);
   }
 
 });
