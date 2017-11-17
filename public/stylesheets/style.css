@@ -121,6 +121,8 @@ a
 .f-image-head {
   position: relative;
   z-index:1;
+  display: block;
+  margin: auto;
 }
 .f-image-body {
   position: relative;

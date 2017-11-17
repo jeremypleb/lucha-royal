@@ -35,24 +35,29 @@ app.controller('mainCtrl', function($scope, $http, getFighterCards) {
   $scope.battleCounter = 0;
 
   $scope.headOptions = [
+    {ext: '1.gif'},
+    {ext: '2.gif'},
+    {ext: '3.jpg'},
+    {ext: '4.jpg'},
+    {ext: '5.png'},
     {ext: '1.png'},
-    {ext: '2.jpg'},
-    {ext: '1.png'},
-    {ext: '2.jpg'},
-    {ext: '1.png'},
+    {ext: 'clement.png'},
     {ext: '2.jpg'}
+    
   ];
 
   $scope.bodyOptions = [
-    {ext: '1.png'},
-    {ext: '2.jpg'},
-    {ext: 'male.png'}
+    {ext: 'female.png'},
+    {ext: 'male.png'},
+    {ext: '1.jpg'},
+    {ext: 'goku.png'}
   ];
 
   $scope.weaponOptions = [
-    {ext: '1.png'},
-    {ext: '2.png'},
-    {ext: '3.png'}
+    {ext: '3.png'},
+    {ext: '4.jpg'},
+    {ext: 'chainsaw.jpg'},
+    {ext: 'rod.png'}
   ];
 
   getFighterCards.get()
